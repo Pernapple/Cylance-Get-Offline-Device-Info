@@ -5,25 +5,17 @@ from collections import defaultdict
 import xlwt
 from tempfile import TemporaryFile
 
-
 #Asks the date range you want to scan
 startVar = raw_input("What is the start date you would like to check? (Use YYYY-MM-DD format): ")
 endVar = raw_input("What is the end date you would like to check? (Use YYYY-MM-DD format): ")
-
-#how to upgrade pip
-#python -m pip install --upgrade pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
-#how to install xlwt if module won't import
-#python -m pip install xlwt --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org
-
-#Key expires at: 2:45pm
 
 #This block performs a GET request from Cylance to get all the devices
 url = "https://protectapi.cylance.com/devices/v2"
 querystring = {"page":"1","page_size":"10000"}
 headers = {
-    'Accept': "application/json",   #Every 30 minutes the Authorization key below expires and you must regenerate and copy + paste.
-    'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2OWI2MzQyMC1iMjM2LTQ2OTktYmRlYy1kZThjOTAxYjE0MzkiLCJpYXQiOjE1NjU5Nzc1NDAsInNjcCI6WyJhcHBsaWNhdGlvbjpsaXN0IiwiZGV2aWNlOmxpc3QiLCJkZXZpY2U6cmVhZCIsImRldmljZTp0aHJlYXRsaXN0IiwiZ2xvYmFsbGlzdDpsaXN0IiwiZ2xvYmFsbGlzdDpyZWFkIiwib3B0aWNzY29tbWFuZDpsaXN0Iiwib3B0aWNzY29tbWFuZDpyZWFkIiwib3B0aWNzZGV0ZWN0Omxpc3QiLCJvcHRpY3NkZXRlY3Q6cmVhZCIsIm9wdGljc2V4Y2VwdGlvbjpsaXN0Iiwib3B0aWNzZXhjZXB0aW9uOnJlYWQiLCJvcHRpY3Nmb2N1czpsaXN0Iiwib3B0aWNzZm9jdXM6cmVhZCIsIm9wdGljc3BrZ2NvbmZpZzpsaXN0Iiwib3B0aWNzcGtnY29uZmlnOnJlYWQiLCJvcHRpY3Nwa2dkZXBsb3k6bGlzdCIsIm9wdGljc3BrZ2RlcGxveTpyZWFkIiwib3B0aWNzcG9saWN5Omxpc3QiLCJvcHRpY3Nwb2xpY3k6cmVhZCIsIm9wdGljc3J1bGU6bGlzdCIsIm9wdGljc3J1bGU6cmVhZCIsIm9wdGljc3J1bGVzZXQ6bGlzdCIsIm9wdGljc3J1bGVzZXQ6cmVhZCIsIm9wdGljc3N1cnZleTpsaXN0Iiwib3B0aWNzc3VydmV5OnJlYWQiLCJwb2xpY3k6bGlzdCIsInBvbGljeTpyZWFkIiwidGhyZWF0OmRldmljZWxpc3QiLCJ0aHJlYXQ6bGlzdCIsInRocmVhdDpyZWFkIiwidXNlcjpsaXN0IiwidXNlcjpyZWFkIiwiem9uZTpsaXN0Iiwiem9uZTpyZWFkIl0sInRpZCI6Ijk2ODU5OWQ1LTM0YmQtNDg3YS04M2U1LWFmOWViOWY4OGY5OCIsImlzcyI6Imh0dHA6Ly9jeWxhbmNlLmNvbSIsImF1ZCI6Imh0dHBzOi8vcGFwaS5jeWxhbmNlLmNvbS9hcGkiLCJleHAiOjE1NjU5NzkzNDAsIm5iZiI6MTU2NTk3NzU0MH0.TJGa6gWnYcP4W3LE5TBdjMv2r_E8k4SAk7H9tLiRKlw",
-    'Cache-Control': "no-cache", #MAKE SURE YOU LEAVE THE "Bearer" TEXT BEFORE THE KEY. NOT SURE BUT IT WILL ONLY WORK IF YOU KEEP IT.
+    'Accept': "application/json",
+    'Authorization': "ENTER YOUR CYLANCE API KEY HERE",
+    'Cache-Control': "no-cache",
     'Host': "protectapi.cylance.com",
     'Accept-Encoding': "gzip, deflate",
     'Connection': "keep-alive",
@@ -81,7 +73,7 @@ for url in deviceurlList:
         tempDict[offlineDateTime] = deviceID
     deviceDict.update(tempDict)
 
-#This block prompts the user for a range of dates they want to search and returns the device IDs that are in that range
+#This block takes the users range of dates they want to search and returns the device IDs that are in that range
 dateTimeList = deviceDict.keys()
 dateListRaw = list()
 for item in dateTimeList:
